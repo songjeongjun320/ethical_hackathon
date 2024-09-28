@@ -5,13 +5,37 @@ import { useState } from "react";
 export default function Home() {
   const [inputText, setInputText] = useState("");
   const [submittedText, setSubmittedText] = useState("");
+  const [modifiedText, setModifiedText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmittedText(inputText);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/gpt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: inputText }), // Send data to the API
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setModifiedText(data.modifiedText); // Save the response from the GPT API
+      } else {
+        console.error("Error:", data.error);
+      }
+    } catch (error) {
+      console.error("Failed to fetch:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -30,15 +54,17 @@ export default function Home() {
       <button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700"
         onClick={handleSubmit}
+        disabled={isLoading} // When it is loading, the button is disabled
       >
-        Submit
+        {isLoading ? "Processing..." : "Submit"}
       </button>
 
       <div className="mt-8 p-4 w-full max-w-2xl bg-gray-100 border border-gray-300 rounded-md">
         <h2 className="text-2xl font-semibold mb-4 text-black">
           How about this?
         </h2>
-        <p>{submittedText}</p>
+        <p>{modifiedText || submittedText}</p>{" "}
+        {/* Show the converted sentence */}
       </div>
     </div>
   );
