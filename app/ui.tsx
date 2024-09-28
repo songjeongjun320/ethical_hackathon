@@ -8,33 +8,41 @@ export default function Home() {
   const [modifiedText, setModifiedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Handle input change in the textarea
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(e.target.value);
   };
 
+  // Handle form submission
   const handleSubmit = async () => {
     setSubmittedText(inputText);
     setIsLoading(true);
+    setModifiedText(""); // Clear the modified text while processing
+    console.log("Waiting for the result..."); // Log message indicating processing
 
     try {
-      const response = await fetch("/api/gpt", {
+      const response = await fetch("/api/ollama", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text: inputText }), // Send data to the API
+        body: JSON.stringify({
+          text: `Make the following sentence nicer. The sentence length must be similar to the original sentence. Just bring me the result without any other text: "${inputText}"`,
+        }),
       });
 
       const data = await response.json();
+      console.log("data from llama : ");
+      console.log(data);
       if (response.ok) {
-        setModifiedText(data.modifiedText); // Save the response from the GPT API
+        setModifiedText(data.modifiedText); // Save the response from the Ollama API
       } else {
         console.error("Error:", data.error);
       }
     } catch (error) {
       console.error("Failed to fetch:", error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Reset loading state
     }
   };
 
@@ -48,15 +56,16 @@ export default function Home() {
         className="border border-gray-300 p-4 w-full max-w-2xl h-32 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
         placeholder="Type something here..."
         value={inputText}
-        onChange={handleInputChange}
+        onChange={handleInputChange} // Handle textarea input changes
       />
 
       <button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700"
-        onClick={handleSubmit}
-        disabled={isLoading} // When it is loading, the button is disabled
+        onClick={handleSubmit} // Trigger the submit handler
+        disabled={isLoading} // Disable the button while loading
       >
-        {isLoading ? "Processing..." : "Submit"}
+        {isLoading ? "Processing..." : "Submit"}{" "}
+        {/* Show "Processing..." while loading */}
       </button>
 
       <div className="mt-8 p-4 w-full max-w-2xl bg-gray-100 border border-gray-300 rounded-md">
@@ -64,7 +73,7 @@ export default function Home() {
           How about this?
         </h2>
         <p>{modifiedText || submittedText}</p>{" "}
-        {/* Show the converted sentence */}
+        {/* Show modified text or fallback to the original input */}
       </div>
     </div>
   );
