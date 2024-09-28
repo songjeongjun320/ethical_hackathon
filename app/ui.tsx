@@ -20,6 +20,16 @@ export default function Home() {
     setModifiedText(""); // Clear the modified text while processing
     console.log("Waiting for the result..."); // Log message indicating processing
 
+    {
+      ("Here should be the code to detect whether the user's sentence is positive or negavite. ");
+    }
+    {
+      ("If the user's sentence is positive, don't call groq api");
+    }
+    {
+      ("If the user's sentence is negative, call groq api to make the sentence nicer");
+    }
+
     try {
       console.log("Starting fetch request to groq...");
       const response = await fetch("/api/groq", {
