@@ -21,21 +21,23 @@ export default function Home() {
     console.log("Waiting for the result..."); // Log message indicating processing
 
     try {
-      const response = await fetch("/api/ollama", {
+      console.log("Starting fetch request to groq...");
+      const response = await fetch("/api/groq", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          text: `Make the following sentence nicer. The sentence length must be similar to the original sentence. Just bring me the result without any other text: "${inputText}"`,
+          text: `Make sentence nicer. Result length must be similar to the original sentence. "${inputText}"`,
         }),
       });
 
+      console.log("Fetch request to groq completed.");
       const data = await response.json();
-      console.log("data from llama : ");
-      console.log(data);
+      console.log("data from groq : ", data);
+
       if (response.ok) {
-        setModifiedText(data.modifiedText); // Save the response from the Ollama API
+        setModifiedText(data.result); // Save the response from the API
       } else {
         console.error("Error:", data.error);
       }
@@ -72,8 +74,16 @@ export default function Home() {
         <h2 className="text-2xl font-semibold mb-4 text-black">
           How about this?
         </h2>
-        <p>{modifiedText || submittedText}</p>{" "}
-        {/* Show modified text or fallback to the original input */}
+        {/* Show loading message or modified text */}
+        {isLoading ? (
+          <div className="flex items-center">
+            <div className="loader mr-2"></div>{" "}
+            {/* You can replace this with a spinner or text */}
+            <p>Let's be more nice...</p>
+          </div>
+        ) : (
+          <p>{modifiedText || submittedText}</p> // Show modified text or fallback to the original input
+        )}
       </div>
     </div>
   );
