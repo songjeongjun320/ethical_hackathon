@@ -1,9 +1,12 @@
-// background.js
+console.log("Background script is running...");
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log("Background script is running...");
+  console.log("Background script received message:", message);
 
   if (message.text) {
-    // Send text to your server for analysis and modification
+    console.log("Starting fetch request with text:", message.text);
+
+    // Attempt to fetch from the server
     fetch("http://localhost:3000/api/groq", {
       method: "POST",
       headers: {
@@ -11,9 +14,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       },
       body: JSON.stringify({ text: message.text }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log("Fetch response received:", response);
+
+        // Check if response is okay
+        if (!response.ok) {
+          throw new Error(`Server responded with status: ${response.status}`);
+        }
+
+        return response.json();
+      })
       .then((data) => {
-        // Send the modified text back to content.js
+        console.log("Data from server:", data);
         sendResponse({ modifiedText: data.result });
       })
       .catch((error) => {

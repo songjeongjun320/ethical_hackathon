@@ -1,23 +1,60 @@
-// content.js
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("Content script loaded and running...");
+console.log("Content script loaded and running...");
 
-  // Monitor comment input boxes on Instagram
-  const commentBox = document.querySelector("textarea"); // Assuming Instagram's comment box is a textarea
+let isListenerAttached = false; // To keep track if listener is already attached
 
-  // Listen for submit action (this may vary depending on Instagram's exact HTML structure)
-  commentBox?.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      // Assuming pressing Enter submits the comment
-      event.preventDefault();
+const attachCommentListener = () => {
+  if (isListenerAttached) return; // If the listener is already attached, return
+  isListenerAttached = true; // Mark listener as attached
 
-      const inputText = commentBox.value;
-      // Send input text to background script for analysis
-      chrome.runtime.sendMessage({ text: inputText }, (response) => {
-        if (response.modifiedText) {
-          alert(`How about this? \n${response.modifiedText}`);
-        }
-      });
+  document.body.addEventListener("keydown", (event) => {
+    const commentBox = document.querySelector(
+      'textarea[placeholder="댓글 달기..."], textarea[placeholder="Add a comment..."]'
+    );
+
+    if (commentBox && event.target === commentBox) {
+      console.log("Keydown event detected:", event.key);
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        const inputText = commentBox.value;
+
+        console.log(
+          "Sending message to background script with text:",
+          inputText
+        );
+        chrome.runtime.sendMessage({ text: inputText }, (response) => {
+          if (response && response.modifiedText) {
+            alert(`How about changing it to this?\n${response.modifiedText}`);
+          } else {
+            console.error(
+              "No response received or error:",
+              response ? response.error : "Unknown error"
+            );
+          }
+        });
+      }
+    }
+  });
+};
+
+// Create a MutationObserver to watch for changes in the DOM
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    const commentBoxFound = document.querySelector(
+      'textarea[placeholder="댓글 달기..."], textarea[placeholder="Add a comment..."]'
+    );
+    if (commentBoxFound) {
+      console.log("Comment box found:", commentBoxFound);
+      observer.disconnect(); // Stop observing once the comment box is found
+      attachCommentListener(); // Attach the listener after finding the comment box
     }
   });
 });
+
+// Start observing the document body for changes in the DOM tree
+observer.observe(document.body, {
+  childList: true,
+  subtree: true,
+});
+
+// Attach the comment listener initially
+attachCommentListener();

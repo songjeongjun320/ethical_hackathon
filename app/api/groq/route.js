@@ -1,3 +1,4 @@
+// Import necessary modules
 import { NextResponse } from "next/server"; // Import Next.js response handler
 import { Groq } from "groq-sdk"; // Import Groq SDK
 
