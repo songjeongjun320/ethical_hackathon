@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from "../lib/supabaseClient";
 
 export default function Home() {
   const [inputText, setInputText] = useState("");
@@ -9,10 +9,10 @@ export default function Home() {
   const [modifiedText, setModifiedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
-  //   console.log('Supabase client initialized:', !!supabase);
-  // }, []);
+  useEffect(() => {
+    console.log("Supabase URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
+    console.log("Supabase client initialized:", !!supabase);
+  }, []);
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -25,7 +25,7 @@ export default function Home() {
     console.log("Analyzing sentiment...");
 
     try {
-      // 調用 Hugging Face API 進行情感分析
+      // Call Hugging Face API for sentiment analysis
       const sentimentResponse = await fetch("/api/hf", {
         method: "POST",
         headers: {
@@ -37,8 +37,12 @@ export default function Home() {
       const sentimentResult = await sentimentResponse.json();
       console.log("Sentiment analysis result:", sentimentResult);
 
-      // 檢查情感分析結果
-      if (Array.isArray(sentimentResult) && sentimentResult.length > 0 && sentimentResult[0].length > 0) {
+      // Check sentiment analysis results
+      if (
+        Array.isArray(sentimentResult) &&
+        sentimentResult.length > 0 &&
+        sentimentResult[0].length > 0
+      ) {
         const sentiment = sentimentResult[0][0].label;
         console.log("Detected sentiment:", sentiment);
 
@@ -59,29 +63,35 @@ export default function Home() {
           console.log("Groq API response:", groqData);
           setModifiedText(groqData.result);
 
-          // 將數據存儲到 Supabase
+          // Store data in Supabase
           console.log("Attempting to insert data into Supabase...");
           try {
             const { data, error } = await supabase
-              .from('sentence_corrections')
+              .from("sentence_corrections")
               .insert([
-                { input_text: inputText, output_text: groqData.result }
+                { input_text: inputText, output_text: groqData.result },
               ]);
 
             if (error) {
-              console.error('Error inserting data into Supabase:', error);
+              console.error("Error inserting data into Supabase:", error);
             } else {
-              console.log('Data successfully stored in Supabase:', data);
+              console.log("Data successfully stored in Supabase:", data);
             }
           } catch (supabaseError) {
-            console.error('Caught error while inserting into Supabase:', supabaseError);
+            console.error(
+              "Caught error while inserting into Supabase:",
+              supabaseError
+            );
           }
         } else {
           console.log("Positive or neutral sentiment. No modification needed.");
           setModifiedText(inputText);
         }
       } else {
-        console.error("Unexpected sentiment analysis result format:", sentimentResult);
+        console.error(
+          "Unexpected sentiment analysis result format:",
+          sentimentResult
+        );
         setModifiedText(inputText);
       }
     } catch (error) {

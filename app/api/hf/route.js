@@ -16,6 +16,7 @@ export async function POST(req) {
     }
 
     const apiKey = process.env.HUGGING_FACE_API_KEY;
+    console.log(apiKey);
 
     // Call the Hugging Face API for sentiment analysis
     const response = await fetch(
@@ -34,7 +35,12 @@ export async function POST(req) {
     console.log("Sentiment analysis result:", result);
 
     // Check if the response contains valid content, otherwise return an error
-    if (Array.isArray(result) && result.length > 0 && Array.isArray(result[0]) && result[0].length > 0) {
+    if (
+      Array.isArray(result) &&
+      result.length > 0 &&
+      Array.isArray(result[0]) &&
+      result[0].length > 0
+    ) {
       return NextResponse.json(result);
     } else {
       return NextResponse.json(
