@@ -67,24 +67,24 @@ npm run dev
 The server will start running on http://localhost:3000.
 
 ### 4. Set Up the Chrome Extension
-    1. Open the Chrome browser and go to chrome://extensions/.
-    2. Enable Developer mode using the toggle in the upper right corner.
-    3. Click on Load unpacked and select the chrome_extension folder located in your project directory.
-    4. The extension should now appear in your list of installed extensions.
+1. Open the Chrome browser and go to chrome://extensions/.
+2. Enable Developer mode using the toggle in the upper right corner.
+3. Click on Load unpacked and select the chrome_extension folder located in your project directory.
+4. The extension should now appear in your list of installed extensions.
 
 ### 5. Access the Application
-    Once the server is running, open your browser and navigate to http://localhost:3000 to see the application in action.
+Once the server is running, open your browser and navigate to http://localhost:3000 to see the application in action.
 
 ### 🛠️ Usage Instructions
-    1. With the Chrome extension installed and enabled, navigate to a social media platform like Instagram, Facebook, or YouTube.
-    2. When typing a comment, the extension listens for your input in real-time.
-    3. After you press Enter, the extension sends the comment text to the server, which processes it using the AI model.
-    4. A custom popup modal will appear, offering a positive suggestion for your comment. You can then review and apply the suggestion as you see fit.
+1. With the Chrome extension installed and enabled, navigate to a social media platform like Instagram, Facebook, or YouTube.
+2. When typing a comment, the extension listens for your input in real-time.
+3. After you press Enter, the extension sends the comment text to the server, which processes it using the AI model.
+4. A custom popup modal will appear, offering a positive suggestion for your comment. You can then review and apply the suggestion as you see fit.
 
 ### 📌 Notes
-    - Popup Modal: Instead of using a standard alert box, the extension utilizes a custom-styled popup for a more visually appealing experience.
-    - CORS Configuration: Ensure that the backend server is configured with the correct CORS policy to accept requests from the Chrome extension.
-    - Platform-Specific Comment Detection: The extension has different logic to detect comment boxes on Instagram, Facebook, and YouTube, ensuring seamless operation across platforms.
+- Popup Modal: Instead of using a standard alert box, the extension utilizes a custom-styled popup for a more visually appealing experience.
+- CORS Configuration: Ensure that the backend server is configured with the correct CORS policy to accept requests from the Chrome extension.
+- Platform-Specific Comment Detection: The extension has different logic to detect comment boxes on Instagram, Facebook, and YouTube, ensuring seamless operation across platforms.
 
 ```bash
 You can now copy and paste this content into your `README.md` file. This time, all code blocks are properly enclosed to ensure correct markdown formatting.
