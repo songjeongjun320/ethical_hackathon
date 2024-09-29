@@ -14,7 +14,7 @@ export default function Home() {
     console.log("Supabase client initialized:", !!supabase);
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     setInputText(e.target.value);
   };
 
@@ -133,7 +133,13 @@ export default function Home() {
             <p>Let's be more nice...</p>
           </div>
         ) : (
-          <p>{modifiedText || submittedText}</p>
+          <p>
+            {!modifiedText && !submittedText
+              ? ""
+              : modifiedText === submittedText
+              ? "You don't need us..."
+              : modifiedText || submittedText}
+          </p>
         )}
       </div>
     </div>
