@@ -265,7 +265,7 @@ const findCommentBox = () => {
   if (url.includes("instagram.com")) {
     console.log("Detected it is Instagram");
     return document.querySelector(
-      'textarea[placeholder="댓글 달기..."], textarea[placeholder="Add a comment..."]'
+      'textarea[placeholder="댓글 달기..."], textarea[placeholder="Add a comment..."], textarea[aria-label="Add a comment…"]'
     );
   } else if (url.includes("youtube.com")) {
     console.log("Detected it is YouTube");
