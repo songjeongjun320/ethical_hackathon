@@ -25,7 +25,7 @@ export default function Home() {
     console.log("Analyzing sentiment...");
 
     try {
-      // 調用 Hugging Face API 進行情感分析
+      // Call Hugging Face API for sentiment analysis
       const sentimentResponse = await fetch("/api/hf", {
         method: "POST",
         headers: {
@@ -44,7 +44,7 @@ export default function Home() {
 
         if (sentiment === "NEG") {
           console.log("Negative sentiment detected. Calling Groq API...");
-          // 調用 Groq API 來改善文本
+          // G
           const groqResponse = await fetch("/api/groq", {
             method: "POST",
             headers: {
