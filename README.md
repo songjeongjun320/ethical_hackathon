@@ -86,6 +86,5 @@ Once the server is running, open your browser and navigate to http://localhost:3
 - CORS Configuration: Ensure that the backend server is configured with the correct CORS policy to accept requests from the Chrome extension.
 - Platform-Specific Comment Detection: The extension has different logic to detect comment boxes on Instagram, Facebook, and YouTube, ensuring seamless operation across platforms.
 
-```bash
-You can now copy and paste this content into your `README.md` file. This time, all code blocks are properly enclosed to ensure correct markdown formatting.
-```
+
+# You can now copy and paste this content into your `README.md` file. This time, all code blocks are properly enclosed to ensure correct markdown formatting.
