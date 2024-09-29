@@ -3,6 +3,26 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 
+// Offensive words categorized with keys
+import offensiveWords from "./lib/offensiveWords";
+
+// Helper function to detect offensive words in the input text
+const detectOffensiveWords = (text: string) => {
+  const detectedCategories: string[] = [];
+  const lowerCaseText = text.toLowerCase();
+
+  for (const category in offensiveWords) {
+    const words = offensiveWords[category as keyof typeof offensiveWords]; // Explicitly type category
+    for (let word of words) {
+      if (lowerCaseText.includes(word)) {
+        detectedCategories.push(category);
+        break; // Break out of the loop after the first offensive word is found in this category
+      }
+    }
+  }
+  return detectedCategories.length > 0 ? detectedCategories : null;
+};
+
 export default function Home() {
   const [inputText, setInputText] = useState("");
   const [submittedText, setSubmittedText] = useState("");
@@ -18,12 +38,25 @@ export default function Home() {
     setInputText(e.target.value);
   };
 
+  // Function to handle the form submission logic
   const handleSubmit = async () => {
     setSubmittedText(inputText);
     setIsLoading(true);
     setModifiedText("");
-    console.log("Analyzing sentiment...");
+    console.log("Analyzing text...");
 
+    // Check for offensive words
+    const detectedCategories = detectOffensiveWords(inputText);
+    if (detectedCategories) {
+      console.log("Offensive words detected:", detectedCategories);
+      setModifiedText(
+        `Do you know what does "<strong>${inputText}</strong>" mean?`
+      );
+      setIsLoading(false);
+      return; // Exit early since offensive words were found
+    }
+
+    // Existing logic for calling APIs remains unchanged
     try {
       // Call Hugging Face API for sentiment analysis
       const sentimentResponse = await fetch("/api/hf", {
@@ -37,7 +70,6 @@ export default function Home() {
       const sentimentResult = await sentimentResponse.json();
       console.log("Sentiment analysis result:", sentimentResult);
 
-      // Check sentiment analysis results
       if (
         Array.isArray(sentimentResult) &&
         sentimentResult.length > 0 &&
@@ -48,7 +80,6 @@ export default function Home() {
 
         if (sentiment === "NEG") {
           console.log("Negative sentiment detected. Calling Groq API...");
-          // Call Groq API to improve the text
           const groqResponse = await fetch("/api/groq", {
             method: "POST",
             headers: {
@@ -62,27 +93,6 @@ export default function Home() {
           const groqData = await groqResponse.json();
           console.log("Groq API response:", groqData);
           setModifiedText(groqData.result);
-
-          // Store data in Supabase
-          console.log("Attempting to insert data into Supabase...");
-          try {
-            const { data, error } = await supabase
-              .from("sentence_corrections")
-              .insert([
-                { input_text: inputText, output_text: groqData.result },
-              ]);
-
-            if (error) {
-              console.error("Error inserting data into Supabase:", error);
-            } else {
-              console.log("Data successfully stored in Supabase:", data);
-            }
-          } catch (supabaseError) {
-            console.error(
-              "Caught error while inserting into Supabase:",
-              supabaseError
-            );
-          }
         } else {
           console.log("Positive or neutral sentiment. No modification needed.");
           setModifiedText(inputText);
@@ -102,6 +112,14 @@ export default function Home() {
     }
   };
 
+  // Add keydown listener for the Enter key
+  const handleKeyDown = (e: any) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // Prevent the default behavior of the Enter key
+      handleSubmit(); // Call the handleSubmit function
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-black text-black">
       <h1 className="text-4xl font-bold mb-8 text-white">
@@ -113,6 +131,7 @@ export default function Home() {
         placeholder="Type something here..."
         value={inputText}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown} // Add this line to handle the Enter key press
       />
 
       <button
@@ -133,13 +152,16 @@ export default function Home() {
             <p>Let's be more nice...</p>
           </div>
         ) : (
-          <p>
-            {!modifiedText && !submittedText
-              ? ""
-              : modifiedText === submittedText
-              ? "You don't need us..."
-              : modifiedText || submittedText}
-          </p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html:
+                !modifiedText && !submittedText
+                  ? ""
+                  : modifiedText === submittedText
+                  ? "You don't need us..."
+                  : modifiedText || submittedText,
+            }}
+          ></p>
         )}
       </div>
     </div>
