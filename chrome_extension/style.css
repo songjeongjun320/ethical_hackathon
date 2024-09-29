@@ -1,0 +1,45 @@
+/* Apply a nice background color to the popup */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  width: 200px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style the popup content container */
+#popup-content {
+  text-align: center;
+  padding: 15px;
+}
+
+/* Header styles */
+h1 {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}
+
+/* Paragraph text styles */
+p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Add some padding and border-radius to make it look clean */
+#popup-content {
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Add a subtle shadow to the popup */
+body {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}

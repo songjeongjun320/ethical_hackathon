@@ -26,11 +26,11 @@ export async function POST(req) {
     const response = await groq.chat.completions.create({
       messages: [
         {
-          role: "user", // Set the role to 'user' as required by Groq API
-          content: `Make sentence nicer. Just result. ${text}`, // Pass the input text
+          role: "user",
+          content: `Rewrite the following sentence in a more positive and constructive way. Do not add any notes or explanations, just provide the modified sentence:\n"${text}"`,
         },
       ],
-      model: "llama3-8b-8192", // Specify the model name (ensure it’s correct)
+      model: "llama3-8b-8192",
     });
 
     // Log the API response for debugging purposes
