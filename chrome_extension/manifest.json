@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Be More Nice Extension",
+  "version": "1.0",
+  "description": "Suggests more positive comments before posting on social media.",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.instagram.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "host_permissions": ["http://localhost:3000/api/*"]
+}
