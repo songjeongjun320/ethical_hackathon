@@ -4,7 +4,7 @@ import { Groq } from "groq-sdk"; // Import Groq SDK
 
 // Initialize Groq client with API key from environment variables
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-console.log(process.env.GROQ_API_KEY)
+console.log(process.env.GROQ_API_KEY);
 
 export async function POST(req) {
   // Parse JSON request body to extract the 'text' field
@@ -12,7 +12,7 @@ export async function POST(req) {
 
   try {
     // Log API key and input text for debugging purposes
-    console.log("API Key:", process.env.GROQ_API_KEY);
+    // console.log("API Key:", process.env.GROQ_API_KEY);
     console.log("Input Text:", text);
 
     // If no input text is provided, return a 400 (Bad Request) response
@@ -35,7 +35,7 @@ export async function POST(req) {
     });
 
     // Log the API response for debugging purposes
-    console.log("API Response:", response);
+    // console.log("API Response:", response);
 
     // Check if the response contains valid content, otherwise return an error
     if (

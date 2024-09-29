@@ -48,7 +48,7 @@ export default function Home() {
 
         if (sentiment === "NEG") {
           console.log("Negative sentiment detected. Calling Groq API...");
-          // 調用 Groq API 來改善文本
+          // Call Groq API to improve the text
           const groqResponse = await fetch("/api/groq", {
             method: "POST",
             headers: {
