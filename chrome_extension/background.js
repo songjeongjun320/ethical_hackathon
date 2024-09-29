@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log("Starting sentiment analysis with text:", message.text);
 
     // Step 1: Check sentiment using /api/hf
-    fetch("http://localhost:3000/api/hf", {
+    fetch("http://localhost:3000/api/hf_sentiment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

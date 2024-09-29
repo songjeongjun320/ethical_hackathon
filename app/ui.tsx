@@ -59,7 +59,7 @@ export default function Home() {
     // Existing logic for calling APIs remains unchanged
     try {
       // Call Hugging Face API for sentiment analysis
-      const sentimentResponse = await fetch("/api/hf", {
+      const sentimentResponse = await fetch("/api/hf_sentiment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
