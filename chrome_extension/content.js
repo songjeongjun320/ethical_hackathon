@@ -156,6 +156,59 @@ const offensiveWords = {
   ],
 };
 
+// Function to submit the comment
+const submitComment = (commentBox) => {
+  console.log("allowed submoit comment! It should be posted!");
+  if (!commentBox) return;
+
+  // Create and dispatch an "Enter" key event to the comment box
+  const event = new KeyboardEvent("keydown", { key: "Enter", bubbles: true });
+  commentBox.dispatchEvent(event);
+};
+
+// Inject a custom modal into the page
+const createCustomModal = () => {
+  const modalHTML = `
+    <div id="custom-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
+      <div style="background:white; padding:20px; border-radius:8px; max-width:400px; width:80%; text-align:center; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+        <p id="modal-text" style="margin-bottom:20px; color: #333; font-size: 16px;">How about changing it to this?</p>
+        <div style="display: flex; justify-content: center; gap: 10px;">
+          <button id="dismiss-button" style="padding: 10px 20px; background-color: #d9534f; color: white; border: none; border-radius: 5px; cursor: pointer;">Dismiss</button>
+          <button id="change-button" style="padding: 10px 20px; background-color: #5bc0de; color: white; border: none; border-radius: 5px; cursor: pointer;">Change</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+  // Add event listeners for the modal buttons
+  document.getElementById("dismiss-button").addEventListener("click", () => {
+    document.getElementById("custom-modal").style.display = "none";
+    triggerEnterPress(); // Automatically submit the comment
+  });
+
+  document.getElementById("change-button").addEventListener("click", () => {
+    document.getElementById("custom-modal").style.display = "none";
+  });
+};
+
+// Function to show the custom modal
+const showCustomModal = (text) => {
+  document.getElementById(
+    "modal-text"
+  ).innerText = `How about changing it to this?\n${text}`;
+  document.getElementById("custom-modal").style.display = "flex";
+};
+
+// Function to trigger an "Enter" key press event
+const triggerEnterPress = () => {
+  const event = new KeyboardEvent("keydown", { key: "Enter", bubbles: true });
+  document.body.dispatchEvent(event);
+};
+
+// Call this function to create the modal when the content script is loaded
+createCustomModal();
+
 // Helper function to detect offensive words in the input text
 const detectOffensiveWords = (text) => {
   const detectedCategories = [];
@@ -224,17 +277,17 @@ const sendMessageToBackground = (text, commentBox, event) => {
       // If no offensive words, use the existing sentiment analysis logic
       chrome.runtime.sendMessage({ text: text }, (response) => {
         if (response && response.modifiedText) {
-          alert(`How about changing it to this?\n${response.modifiedText}`);
-          // Clear the comment box content to prevent submission
+          showCustomModal(response.modifiedText); // Show custom modal
           if (commentBox) {
-            commentBox.value = ""; // For textarea elements
-            commentBox.innerText = ""; // For contenteditable elements
+            commentBox.value = "";
+            commentBox.innerText = "";
           }
-          // Prevent the default submission behavior
           event.preventDefault();
           event.stopPropagation();
         } else if (response && response.allowPost) {
           console.log("Positive sentiment detected, allowing post.");
+          submitComment(commentBox);
+
           // Do nothing to let the comment post proceed
         } else {
           console.error(
