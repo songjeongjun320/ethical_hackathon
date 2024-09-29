@@ -16,7 +16,6 @@ export async function POST(req) {
     }
 
     const apiKey = process.env.HUGGING_FACE_API_KEY;
-    console.log(apiKey);
 
     // Call the Hugging Face API for sentiment analysis
     const response = await fetch(

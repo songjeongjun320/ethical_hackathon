@@ -4,7 +4,7 @@ import { Groq } from "groq-sdk"; // Import Groq SDK
 
 // Initialize Groq client with API key from environment variables
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-console.log(process.env.GROQ_API_KEY);
+// console.log(process.env.GROQ_API_KEY);
 
 export async function POST(req) {
   // Parse JSON request body to extract the 'text' field
