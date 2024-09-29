@@ -1,5 +1,5 @@
-const offensiveWords = {
-  racialSlurs: [
+{
+  "racialSlurs": [
     "nigga",
     "nigger",
     "chink",
@@ -27,27 +27,27 @@ const offensiveWords = {
     "pikey",
     "wop",
     "dago",
-    "paki",
+    "paki"
   ],
-  culturalOrReligiousInsults: [
+  "culturalOrReligiousInsults": [
     "infidel",
     "heathen",
     "zionist",
     "islamist",
     "jihadi",
     "muzzie",
-    "christ-killer",
+    "christ-killer"
   ],
-  genderOrSexualityInsults: [
+  "genderOrSexualityInsults": [
     "sissy",
     "tranny",
     "queer",
     "fag",
     "dyke",
     "homo",
-    "nancy boy",
+    "nancy boy"
   ],
-  slangForAsians: [
+  "slangForAsians": [
     "chink",
     "gook",
     "jap",
@@ -56,9 +56,9 @@ const offensiveWords = {
     "yellow skin",
     "oriental",
     "dog eater",
-    "bat eater",
+    "bat eater"
   ],
-  blackOrAfricanInsults: [
+  "blackOrAfricanInsults": [
     "nigga",
     "nigger",
     "monkey",
@@ -70,9 +70,9 @@ const offensiveWords = {
     "cotton picker",
     "porch monkey",
     "ape",
-    "jungle bunny",
+    "jungle bunny"
   ],
-  whiteOrEuropeanInsults: [
+  "whiteOrEuropeanInsults": [
     "cracker",
     "honky",
     "white trash",
@@ -81,9 +81,9 @@ const offensiveWords = {
     "gringo",
     "pasty",
     "pale face",
-    "mayo",
+    "mayo"
   ],
-  hispanicOrLatinoInsults: [
+  "hispanicOrLatinoInsults": [
     "spic",
     "beaner",
     "wetback",
@@ -92,9 +92,9 @@ const offensiveWords = {
     "pepper belly",
     "mojado",
     "taco bender",
-    "cholo",
+    "cholo"
   ],
-  middleEasternInsults: [
+  "middleEasternInsults": [
     "sandnigger",
     "camel jockey",
     "towelhead",
@@ -102,9 +102,9 @@ const offensiveWords = {
     "raghead",
     "aladdin",
     "bomb maker",
-    "desert monkey",
+    "desert monkey"
   ],
-  nativeAmericanInsults: [
+  "nativeAmericanInsults": [
     "redskin",
     "injun",
     "savage",
@@ -112,9 +112,9 @@ const offensiveWords = {
     "chief",
     "squaw",
     "teepee creeper",
-    "corn shucker",
+    "corn shucker"
   ],
-  jewishInsults: [
+  "jewishInsults": [
     "kike",
     "heeb",
     "jewboy",
@@ -122,9 +122,9 @@ const offensiveWords = {
     "sheeny",
     "christ-killer",
     "penny pincher",
-    "shylock",
+    "shylock"
   ],
-  asianInsults: [
+  "asianInsults": [
     "chink",
     "gook",
     "jap",
@@ -135,13 +135,11 @@ const offensiveWords = {
     "yellow skin",
     "oriental",
     "dog eater",
-    "bat eater",
+    "bat eater"
   ],
-  generalOffensivePhrases: [
+  "generalOffensivePhrases": [
     "go back to your country",
     "you people",
-    "speak english",
-  ],
-};
-
-export default offensiveWords;
+    "speak english"
+  ]
+}
