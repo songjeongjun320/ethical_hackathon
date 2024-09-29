@@ -47,13 +47,6 @@ const offensiveWords = {
     "homo",
     "nancy boy",
   ],
-  mentalOrPhysicalHealthInsults: [
-    "psycho",
-    "retard",
-    "lunatic",
-    "schizo",
-    "spaz",
-  ],
   slangForAsians: [
     "chink",
     "gook",
