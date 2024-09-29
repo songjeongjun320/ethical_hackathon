@@ -9,10 +9,10 @@ export default function Home() {
   const [modifiedText, setModifiedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
-    console.log('Supabase client initialized:', !!supabase);
-  }, []);
+  // useEffect(() => {
+  //   console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+  //   console.log('Supabase client initialized:', !!supabase);
+  // }, []);
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);

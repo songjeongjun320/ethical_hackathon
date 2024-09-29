@@ -9,12 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< Updated upstream
     "cors": "^2.8.5",
     "express": "^4.21.0",
-=======
-    "@supabase/supabase-js": "^2.45.4",
->>>>>>> Stashed changes
     "groq-sdk": "^0.7.0",
     "next": "14.2.13",
     "openai": "^4.65.0",
