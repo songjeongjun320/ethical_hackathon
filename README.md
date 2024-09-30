@@ -6,6 +6,7 @@ content = """
 
 Welcome to the official website of **Why don't you be more nicer?**:  
 🚀 [Visit the site](https://ethical-hackathon.vercel.app)
+🚀 [Try Chrome extension]() - Not deployed yet
 
 ## Project Overview
 

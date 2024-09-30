@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log("Starting sentiment analysis with text:", message.text);
 
     // Step 1: Check sentiment using /api/hf
-    fetch("http://localhost:3000/api/hf_sentiment", {
+    fetch("https://ethical-hackathon.vercel.app/api/hf_sentiment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           );
 
           // Step 3: Make fetch request to /api/groq
-          return fetch("http://localhost:3000/api/groq", {
+          return fetch("https://ethical-hackathon.vercel.app/api/groq", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
