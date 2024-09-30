@@ -1,7 +1,3 @@
-# Creating the .md file with the user's content and enhancements
-
-content = """
-
 # Ethical Hackathon - 2nd Prize 🏆
 
 Welcome to the official website of **Why don't you be more nicer?**:  
