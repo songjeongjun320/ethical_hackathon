@@ -37,7 +37,7 @@ Welcome to the official website of **Why don't you be more nicer?**:
 
 ### 🌟 **Final Remarks** 🌟
 
-Once again, we witness too many people hiding behind the internet to harm others. 😔 **Countless individuals fall into despair, and tragically, some even lose their lives.** Isn't it ironic? That mere words can cost a precious life?
+Once again, we witness too many people hiding behind the internet to harm others. **Countless individuals fall into despair, and tragically, some even lose their lives.** Isn't it ironic? That mere words can cost a precious life?
 We aim to build a more ethical internet culture and hope that our project contributes to this mission.
 
 **Thank you**
