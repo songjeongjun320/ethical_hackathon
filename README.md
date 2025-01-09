@@ -3,6 +3,7 @@
 Welcome to the official website of **Why don't you be more nicer?**:  
 🚀 [Visit the site](https://ethical-hackathon.vercel.app)
 🚀 [Try Chrome extension](https://chromewebstore.google.com/detail/be-more-nice-extension/eojcokmbjimfigdpfbmebhblpdlifnkd?hl=en-US&utm_source=ext_sidebar)
+🚀 [LinkedIn Post](https://www.linkedin.com/feed/hashtag/?keywords=ethicalspectacleresearch)
 
 ## Project Overview
 
