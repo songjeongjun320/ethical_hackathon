@@ -2,7 +2,7 @@
 
 Welcome to the official website of **Why don't you be more nicer?**:  
 🚀 [Visit the site](https://ethical-hackathon.vercel.app)
-🚀 [Try Chrome extension]() - Not deployed yet
+🚀 [Try Chrome extension](https://chromewebstore.google.com/detail/be-more-nice-extension/eojcokmbjimfigdpfbmebhblpdlifnkd?hl=en-US&utm_source=ext_sidebar)
 
 ## Project Overview
 
@@ -23,6 +23,10 @@ Welcome to the official website of **Why don't you be more nicer?**:
 - **Version Control**: GitHub
 - **API**: LLama, HuggingFace
 
+## Demo Videos
+
+[Demo video: 1 mins](https://www.youtube.com/watch?v=zHLHY-VRkvw)
+
 ## Contributors 👥
 
 - **Albert**: [GitHub](https://github.com/AlbertSu47)
@@ -38,3 +42,5 @@ Once again, we witness too many people hiding behind the internet to harm others
 We aim to build a more ethical internet culture and hope that our project contributes to this mission.
 
 **Thank you**
+
+---
